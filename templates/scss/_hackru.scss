@@ -1,0 +1,191 @@
+body {
+    background: url("../static/bg.png");
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+#cool {
+    height: 10px;
+    width: 100%;
+    position: top;
+    background-color: $primary-color;
+}
+
+#main {
+    @include grid-row();
+    padding: 0 7px 0 7px;
+    
+}
+
+#main h2 {
+    margin: 1em 0 1em 0;
+    text-align: center;
+    transition-timing-function: ease-in;
+    font-weight: bold;
+    color: white;
+
+}
+
+#main h2 span {
+    color: $primary-color; 
+    text-shadow: 1px 1px 1px #eee;
+}
+
+
+#panel {
+    @include grid-row();
+    @include panel();
+    background-color: #eee;
+}
+
+#panel div input {
+    @media only screen {
+        @include grid-column(12);   
+    }
+    
+    @media only screen and (min-width: 40.063em) {
+        @include grid-column(8)
+    }
+        
+}
+
+#panel div span {
+    @include prefix-postfix-base();
+    
+    @media only screen {
+        @include grid-column(
+            $columns: 12
+        );
+    }
+    
+    @media only screen and (min-width: 40.063em) {
+        @include grid-column(
+            $float:left,
+            $columns: 4
+        );   
+    }
+    
+    @include side-radius(left);
+    border-color: $primary-color;
+    background-color: $secondary-color;
+    
+}
+
+button[type='submit'] {
+width: 100%;
+}
+
+#footer {
+    @include grid-column(
+        $columns: 6,
+        $center: true );
+    text-align: center;    
+}
+
+#footer h5 {
+    font-weight: bold;
+    color: white;
+}
+    
+
+.ui-menu {
+    @include grid-column(4);
+    @include panel();
+    list-style: none;
+    background: #fff;   
+}
+
+.ui-helper-hidden-accessible {
+    position: absolute;
+    margin-left: -9999999999px;
+}
+
+.ui-state-hover, .ui-state-active, .ui-state-focus{
+    color:#000; 
+    background-color: $secondary-color;
+}
+
+.success {
+    @include grid-column(12);
+    @include panel(
+        $bg: $primary-color
+    );
+    
+}
+
+#adam::selection {
+    display: inline;
+    background: red;
+}
+
+#danica::selection {
+    display: inline;
+    background: blue;
+}
+
+#terence::selection {
+    display: inline;
+    background: yellow;
+}
+
+#david::selection {
+    display: inline;
+    background: green;
+}
+
+#hackru {
+    color: $primary-color;
+    text-shadow: 1px 1px 1px #eee;
+}
+
+#popup {
+    position:absolute;
+    top:0px;
+    left:0px;  
+    width:100%; 
+    height:200%; 
+    z-index:10;
+} 
+#popupOverlay { 
+    position:absolute;
+    top:0px;
+    left:0px; 
+    width:100%;
+    height:100%;
+    background:black;
+    opacity:0.5; 
+    z-index:11;
+}
+#popupContent {
+    border-radius:30px;
+    position:relative; 
+    text-align:center;
+    width:350px;
+    margin:0 auto;
+    height:230px;
+    background:#851580; 
+    margin-top:200px;
+    border:1px solid; 
+    z-index:12;
+}
+#netid{
+    margin: 0px auto;
+    width: 90%;
+    outline-color:red;
+    padding:10px;
+}
+#password{
+        margin: 0px auto;
+    width: 90%;
+ outline-color:red;
+ padding:10px;
+ position:relative;
+}
+.togglePopup{
+    color: #717171;
+    position:relative;
+    text-align:center;
+    padding:10px;
+    width:120px;
+    background-color: $secondary-color;
+}

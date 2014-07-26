@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head> 
+        <title>R U Special?</title>
+        
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}" />
+        <script src="{{ url_for('static', filename='dept.js') }}"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/jquery-ui.js"></script>
+        <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed&effect=shadow-multiple' rel='stylesheet' type='text/css'>  
+    </head> 
+    <body>
+        
+        <div id="cool"></div>
+        
+        <div id="main">
+            <h2><span>Rutgers</span> SPN Requests</h2>
+
+            <form id="panel">
+                <div class="small-12 medium-4 columns">
+                    <span>Dept.</span>
+                    <input type="text" name='department' id="department" size="15" maxlength="30" placeholder=" &quot;MANAGEMENT&quot;  " />
+                </div>
+                <div class="small-12 medium-4 columns">
+                    <span>Course #</span>
+                    <input type="text" name='cNum' id="course" size="15"  maxlength="30" placeholder=" &quot;204&quot;"/>
+                </div>
+                <div class="small-12 medium-4 columns">
+                    <span>Section #</span>
+                    <input type="text" name='section' id="section" size="15"  maxlength="30" placeholder=" &quot;4&quot;"/>
+                </div>
+                <div class="row">
+                    <button type="submit" class="radius button" id='submit' >Submit</button>
+                </div>
+            </form>
+            <div class="row">
+                <div id="footer"><h5>Hack<span id="hackru">RU</span> Spring 2014. <span id="adam">Adam</span>, <span id="david">David</span>, <span id="danica">Danica</span>, <span id="terence">Terence</h5></div>
+            </div>
+        </div>
+
+    
+                
+    <div id="popup">
+        <div id="popupOverlay"></div>
+        <div id="popupContent">
+            <h2 style="color:white; font-weight:bold">Login</h2>
+            <input type="text" placeholder="Place Your NetId" id="netid" name="1">
+            <br>
+            <input type="password" placeholder="Enter Password" id="password" name='2'>
+            </br>
+            <p>
+            <button class="togglePopup"><strong>Submit</strong></button>
+            </p>
+        </div>
+    </div>
+        
+    <script>
+
+        var netid;
+        var password;
+        $(document).ready(function () {
+        
+        $(".togglePopup").on('click',function(){
+            netid=$("input[name='1']").val();
+            password=$("input[name='2']").val();
+            $("#popup").fadeToggle();
+        });
+
+        });
+        
+        var deptNum; 
+        var course; 
+        var section;
+    
+        
+        $(function() {
+            $("#department").autocomplete({
+                source: myJson,
+                select: function(event, ui) {
+                    ///$("#department").val(ui.item.label);
+                    deptNum = ui.item.value;
+                    return false;
+                    //sendNum($(this).val(ui.item.value));
+                    //alert($("#department").val(ui.item.value));
+                },
+                focus: function (event, ui) {
+                    $("#department").val(ui.item.label);
+                    return false;
+                }    
+                
+            });
+        });
+        //console.log(deptNum); 
+        document.getElementById('submit').onclick = function(e) {
+            e.preventDefault();
+            
+            section =  $("#section").val();
+            course = $("#course").val();
+            
+
+            $.ajax({
+                type: "POST",
+                url: '/counter',
+                data: {deptNum: deptNum, course: course, section: section},
+                success: function(data) {
+                    
+                    if (data == 1) {
+                        
+                        $("#main").append('<div class="row"><div class="success"><h3>Thank you!</h3><br /><p>No one else requested this course.</p></div></div>');
+                    } else if (data == 2) {
+                    
+                    $("#main").append('<div class="row"><div class="success"><h3>Thank you!</h3><br /><p>' + 1 + ' other person requested the same course.</p></div></div');
+                        
+                    } else {
+                        
+                    $("#main").append('<div class="row"><div class="success"><h3>Thank you!</h3><br /><p>' + data + ' people (including you) requested the same course.</p></div></div>');
+                    }
+                    
+                    if (data >= 20) {
+                        $.ajax({method:'GET', url: '/' + data, success: function() {
+                        }, error: function() { }});
+                    }
+                    
+                },
+                error: function(e) {
+                   console.log("error");
+                }
+            });
+            
+        }
+        
+
+    </script> 
+</body> 
+</html>
