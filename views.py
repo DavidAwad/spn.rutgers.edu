@@ -1,7 +1,7 @@
 from flask import *
 import sendgrid 
 
-sg = sendgrid.SendGridClient('Smashking02' ,'Smash4ever')
+sg = sendgrid.SendGridClient('username' ,'password') ##edit this with sendgrid credentials
 class course(object):
 	def __init__(self, demand , email ):
 		self.demand = demand 
